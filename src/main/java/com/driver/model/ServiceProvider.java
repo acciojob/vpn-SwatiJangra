@@ -1,5 +1,8 @@
 package com.driver.model;
 
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @Table(name = "serviceProviders")
 public class ServiceProvider {
@@ -10,24 +13,18 @@ public class ServiceProvider {
     @ManyToOne
     @JoinColumn
     private Admin admin;
-    @OneToMany(mappedBy = "serviceProvider",cascade = CascadeType.ALL)
-    private List<Connection> connectionList = new ArrayList<>();
+
     @ManyToMany(mappedBy = "serviceProviderList",cascade = CascadeType.ALL)
-    private List<User> users = new ArrayList<>();
+    private List<User> users;
+    @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
+    private List<Country> countryList;
+
     @OneToMany(mappedBy = "serviceProvider",cascade = CascadeType.ALL)
-    private List<Country> countryList = new ArrayList<>();
+    private List<Connection> connectionList ;
 
     public ServiceProvider() {
     }
 
-    public ServiceProvider(int id, String name, Admin admin, List<Connection> connectionList, List<User> userList, List<Country> countryList) {
-        this.id = id;
-        this.name = name;
-        this.admin = admin;
-        this.connectionList = connectionList;
-        this.users = userList;
-        this.countryList = countryList;
-    }
 
     public int getId() {
         return id;
@@ -53,14 +50,6 @@ public class ServiceProvider {
         this.admin = admin;
     }
 
-    public List<Connection> getConnectionList() {
-        return connectionList;
-    }
-
-    public void setConnectionList(List<Connection> connectionList) {
-        this.connectionList = connectionList;
-    }
-
     public List<User> getUsers() {
         return users;
     }
@@ -75,5 +64,13 @@ public class ServiceProvider {
 
     public void setCountryList(List<Country> countryList) {
         this.countryList = countryList;
+    }
+
+    public List<Connection> getConnectionList() {
+        return connectionList;
+    }
+
+    public void setConnectionList(List<Connection> connectionList) {
+        this.connectionList = connectionList;
     }
 }

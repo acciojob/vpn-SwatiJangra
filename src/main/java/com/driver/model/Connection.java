@@ -1,5 +1,8 @@
 package com.driver.model;
 
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @Table(name = "connections")
 public class Connection {
@@ -8,19 +11,15 @@ public class Connection {
     private int id;
     @ManyToOne
     @JoinColumn
-    private ServiceProvider serviceProvider;
-    @ManyToOne
-    @JoinColumn
     private User user;
+
+    @JoinColumn
+    @ManyToOne
+    private ServiceProvider serviceProvider;
 
     public Connection() {
     }
 
-    public Connection(int id, ServiceProvider serviceProvider, User user) {
-        this.id = id;
-        this.serviceProvider = serviceProvider;
-        this.user = user;
-    }
 
     public int getId() {
         return id;
@@ -30,19 +29,19 @@ public class Connection {
         this.id = id;
     }
 
-    public ServiceProvider getServiceProvider() {
-        return serviceProvider;
-    }
-
-    public void setServiceProvider(ServiceProvider serviceProvider) {
-        this.serviceProvider = serviceProvider;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public ServiceProvider getServiceProvider() {
+        return serviceProvider;
+    }
+
+    public void setServiceProvider(ServiceProvider serviceProvider) {
+        this.serviceProvider = serviceProvider;
     }
 }
